@@ -4,14 +4,21 @@ if(!isset($_SESSION['team']))
 header('location: team.php');
 $s=$_SESSION['team'];
 $conn=mysql_connect('localhost','root','yomahesh9094') or die("connection failed");
-           $db=mysql_select_db('buzzer',$conn)or die("could not select database");
-
-$r=mysql_query("update quiz set PressTime=now() where TeamName='$s' ");
-if($r>0)
+$db=mysql_select_db('buzzer',$conn)or die("could not select database");
+$m=mysql_query("select Count from quiz where TeamName='$s' ");
+while($row=mysql_fetch_assoc($m))
 {
-	$s=TRUE;
-	
+if($row['Count']==0)
+{
+$r=mysql_query("update quiz set PressTime=now() where TeamName='$s' ");
+
+$t=mysql_query("update quiz set Count=1 where TeamName='$s' ");
+$a=TRUE;
+
 }
+}
+
+
 
 
 
@@ -28,7 +35,7 @@ if($r>0)
       </head>
       <body>
 
-      	<?php if(isset($s)) {  ?>
+      	<?php if(isset($a)) {  ?>
       <p><center><strong> 
       <div class="alert alert-success">
          <p><strong>Buzzer pressed!</strong></p>

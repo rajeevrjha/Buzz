@@ -24,6 +24,12 @@ if(!isset($_SESSION['team']))
 <canvas id="canvas" width="800" height="256" ></canvas>
 <p id="controls">
     <div id="t"> </div>
+    <audio>
+        <source src="buzz1.mp3" /> 
+    </audio>
+        </div>
+</body>
+</html>
  <!-- <input type="button" id="start_button" value="Start">
   &nbsp; &nbsp;
   <input type="button" id="stop_button" value="Stop">
@@ -55,6 +61,9 @@ if(!isset($_SESSION['team']))
     });
     </script>
 <script type="text/javascript">
+window.onbeforeunload = function() {
+        return "Are u sure you want to reload this page";
+    }
 
     // Hack to handle vendor prefixes
     navigator.getUserMedia = ( navigator.getUserMedia ||
@@ -89,10 +98,14 @@ if(!isset($_SESSION['team']))
     var canvasWidth  = 800;
     var canvasHeight = 256;
     var ctx;
+    var ctx1;
     var value=0;
+    var c=0;
 
     $(document).ready(function() {
+
         ctx = $("#canvas").get()[0].getContext("2d");
+        ctx1 = $("#canvas").get()[0].getContext("2d");
 
         try {
             audioContext = new AudioContext();
@@ -166,20 +179,40 @@ if(!isset($_SESSION['team']))
             }
         }
 		if(maxValue>=0.9){
+        
+var y_lo = canvasHeight - (canvasHeight * minValue) - 1;
+        var y_hi = canvasHeight - (canvasHeight * maxValue) - 1;
+            ctx.fillStyle = 'red';
+        
+        ctx.fillRect(160,160, 10, (y_hi-y_lo)/2);
+         var v = document.getElementsByTagName("audio")[0]; 
+         
+         
+        if(c==0) 
+        {
+         v.play();
+         c=1;
+     }
+        
+    
+         
+
 			
-			alert("threshold value increased to above  0.9 You reached "+maxValue+"..Redirecting..."); 
+			/* alert("threshold value increased to above  0.9 You reached "+maxValue+"..Redirecting..."); */ 
 			redirect();
-            setInterval(function() { window.location.href = 'team.php'; },2000);
+           /* setInterval(function() { window.location.href = 'team.php'; },2000); */
              
 		}
 
         var y_lo = canvasHeight - (canvasHeight * minValue) - 1;
         var y_hi = canvasHeight - (canvasHeight * maxValue) - 1;
 	
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = 'green';
 		
         ctx.fillRect(160,160, 10, (y_hi-y_lo)/2);
         
+       setInterval(function() { clearCanvas(); },2000);
+
 		
          
         // loop around the canvas when we reach the end
@@ -210,6 +243,4 @@ if(!isset($_SESSION['team']))
     }
 
 </script>
-</div>
-</body>
-</html>
+
