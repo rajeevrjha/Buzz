@@ -8,7 +8,11 @@ else
 {
 $conn=mysql_connect('localhost','root','yomahesh9094') or die("connection failed");
 $db=mysql_select_db('buzzer',$conn)or die("could not select database");
+<<<<<<< HEAD
 $q=mysql_query("select TeamName from quiz where Count=1 order by PressTime ");
+=======
+$q=mysql_query("select TeamName from quiz order by PressTime ");
+>>>>>>> 6440a9446500d2b0915b495fa50c0a99e7aecceb
  echo "<table class='table table-hover'> <tr><th> S No. </th> <th> TeamName </th> </tr>";
 
 $id=1;

@@ -223,6 +223,12 @@ var y_lo = canvasHeight - (canvasHeight * minValue) - 1;
         ctx.fillRect(160,160, 10, (y_hi-y_lo)/2);
        start();
          
+<<<<<<< HEAD
+=======
+        
+         v.play();
+         
+>>>>>>> 6440a9446500d2b0915b495fa50c0a99e7aecceb
      
     
          
