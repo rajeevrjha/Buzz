@@ -4,6 +4,7 @@ if(!isset($_SESSION['user']))
 {
    header('location:index.php');
 }
+$_SESSION['a']=0;
 ?>
 
 <!DOCTYPE html>
@@ -16,16 +17,19 @@ if(!isset($_SESSION['user']))
       <link href="../css/bootstrap.min.css" rel="stylesheet">
       <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
       <script>
+      var p,q,r;
       history.pushState(null, null, 'control.php');
     window.addEventListener('popstate', function(event) {
     history.pushState(null, null, 'control.php');
     });
       function retrieve()
       {
+         clearTimeout(q);
          var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 document.getElementById("t").innerHTML = xmlhttp.responseText;
+                r=setTimeout(retrieve, 5000);
             }
         }
         xmlhttp.open("GET", "u.php", true);
@@ -33,6 +37,8 @@ if(!isset($_SESSION['user']))
       }
       function refresh()
       {
+        clearTimeout(r);
+        clearTimeout(q);
 var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -44,6 +50,22 @@ var xmlhttp = new XMLHttpRequest();
 
       }
 
+ function d()
+      {
+         clearTimeout(r);
+var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("t").innerHTML = xmlhttp.responseText;
+                q=setTimeout(d, 5000);
+
+            }
+        }
+        xmlhttp.open("GET", "k.php", true);
+        xmlhttp.send();
+
+      }
+  
       </script>
 
       <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media 
@@ -64,7 +86,19 @@ var xmlhttp = new XMLHttpRequest();
    <br>
    <button onclick="retrieve()" class="btn btn-primary btn-lg " role="button">Buzzer Time</button>
    <button onclick="refresh()" class="btn btn-primary btn-lg " role="button"> Refresh </button>
+    <button onclick="d()" class="btn btn-primary btn-lg " role="button"> Delete </button>
      <a href="logout.php"  class="btn btn-primary btn-lg " role="button" >
          LogOut </a>
  <br>
- <div id="t">
+ <div id="t">   <?php if(isset($_GET['id'])) {  ?>
+      <p><center><strong> 
+      <div class="alert alert-success">
+         <p><strong>Item Successfully Deleted</strong></p>
+      </div></strong></center></p>
+   <?php } ?>
+   
+  <br>
+  <br>
+  <br>
+  <div id="m">
+  

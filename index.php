@@ -1,11 +1,16 @@
 <?php
 ob_start();
 session_start();
-if(!isset($_SESSION['team']))
+$r=getenv('REMOTE_ADDR');
+$conn=mysql_connect('localhost','root','yomahesh9094') or die("connection failed");
+$db=mysql_select_db('buzzer',$conn)or die("could not select database");
+$n=mysql_query("select * from quiz where IPAddress= '$r' ");
+$e=mysql_num_rows($n);
+if($e==0)
 {
     header('location: team.php');
-}
-
+} 
+if($e>0) {
 
 ?>
 
@@ -30,6 +35,7 @@ if(!isset($_SESSION['team']))
         </div>
 </body>
 </html>
+<?php } ?>
  <!-- <input type="button" id="start_button" value="Start">
   &nbsp; &nbsp;
   <input type="button" id="stop_button" value="Stop">
@@ -100,7 +106,7 @@ window.onbeforeunload = function() {
     var ctx;
     var ctx1;
     var value=0;
-    var c=0;
+    
 
     $(document).ready(function() {
 
@@ -188,12 +194,10 @@ var y_lo = canvasHeight - (canvasHeight * minValue) - 1;
          var v = document.getElementsByTagName("audio")[0]; 
          
          
-        if(c==0) 
-        {
-         v.play();
-         c=1;
-     }
         
+         v.play();
+         
+     
     
          
 
