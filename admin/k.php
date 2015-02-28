@@ -48,9 +48,16 @@ $n=mysql_query("select * from quiz");
     $conn=mysql_connect('localhost','root','yomahesh9094') or die("connection failed");
 $db=mysql_select_db('buzzer',$conn)or die("could not select database");
 $e=mysql_query("delete from quiz where TeamName = '{$c}' ");
+if(mysql_num_rows($e)==0)
+{
+$_POST['b']=1;
+header('location:control.php?id1='.$_POST['b']);
+}
+else
+{
 $_POST['a']=1;
 header('location:control.php?id='.$_POST['a']);
-
+}
 }
 }
 ?>
