@@ -1,7 +1,25 @@
 <?php
 session_start();
 if(!isset($_SESSION['team']))
-header('location: team.php');
+{
+   $c=$_SESSION['ip'];
+  $conn=mysql_connect('localhost','root','yomahesh9094') or die("connection failed");
+$db=mysql_select_db('buzzer',$conn)or die("could not select database");
+$m=mysql_query("select Count from quiz where IPAddress='$c' ");
+while($row=mysql_fetch_assoc($m))
+{
+if($row['Count']==0)
+{
+$r=mysql_query("update quiz set PressTime=now() where TeamName='$s' ");
+
+$t=mysql_query("update quiz set Count=1 where TeamName='$s' ");
+$a=TRUE;
+
+} 
+}
+}
+else
+{
 $s=$_SESSION['team'];
 $conn=mysql_connect('localhost','root','yomahesh9094') or die("connection failed");
 $db=mysql_select_db('buzzer',$conn)or die("could not select database");
@@ -18,7 +36,7 @@ $a=TRUE;
 }
 }
 
-
+}
 
 
 

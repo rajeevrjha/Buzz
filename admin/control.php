@@ -96,6 +96,12 @@ var xmlhttp = new XMLHttpRequest();
          <p><strong>Item Successfully Deleted</strong></p>
       </div></strong></center></p>
    <?php } ?>
+   <?php if(isset($_GET['id1'])) {  ?>
+   <p><center><strong> 
+      <div class="alert alert-danger">
+         <p><strong>No item to Delete</strong></p>
+      </div></strong></center></p>
+      <?php } ?>
    
   <br>
   <br>

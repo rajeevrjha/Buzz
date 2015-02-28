@@ -2,6 +2,7 @@
 ob_start();
 session_start();
 $r=getenv('REMOTE_ADDR');
+$_SESSION['ip']=$r;
 $conn=mysql_connect('localhost','root','yomahesh9094') or die("connection failed");
 $db=mysql_select_db('buzzer',$conn)or die("could not select database");
 $n=mysql_query("select * from quiz where IPAddress= '$r' ");
@@ -29,9 +30,7 @@ if($e>0) {
 <canvas id="canvas" width="800" height="256" ></canvas>
 <p id="controls">
     <div id="t"> </div>
-    <audio>
-        <source src="buzz1.mp3" /> 
-    </audio>
+   
         </div>
 </body>
 </html>
@@ -66,10 +65,42 @@ if($e>0) {
     history.pushState(null, null, 'index.php');
     });
     </script>
+    <script>
+    var context = new AudioContext();
+    function start() { 
+     var request = new XMLHttpRequest();
+      request.open("GET", "buzz1.mp3", true);
+       request.responseType = "arraybuffer"; 
+        request.onload = function() 
+        { 
+            var data = request.response;  
+            audioRouting(data); }; 
+         request.send(); 
+     }
+
+     function audioRouting(data) {
+    source = context.createBufferSource(); // Create sound source
+    context.decodeAudioData(data, function(buffer){ // Create source buffer from raw binary
+    source.buffer = buffer; // Add buffered data to object
+    source.connect(context.destination); // Connect sound source to output
+    playSound(source); // Pass the object to the play function
+    });
+}
+
+function playSound() {
+    source.start(context.currentTime); // play the source immediately
+}
+    
+
+
+
+     
+    </script>
 <script type="text/javascript">
 window.onbeforeunload = function() {
         return "Are u sure you want to reload this page";
     }
+
 
     // Hack to handle vendor prefixes
     navigator.getUserMedia = ( navigator.getUserMedia ||
@@ -191,11 +222,7 @@ var y_lo = canvasHeight - (canvasHeight * minValue) - 1;
             ctx.fillStyle = 'red';
         
         ctx.fillRect(160,160, 10, (y_hi-y_lo)/2);
-         var v = document.getElementsByTagName("audio")[0]; 
-         
-         
-        
-         v.play();
+       start();
          
      
     
