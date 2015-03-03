@@ -2,6 +2,7 @@
 ob_start();
 session_start();
 $r=getenv('REMOTE_ADDR');
+$_SESSION['ip']=$r;
 $conn=mysql_connect('localhost','root','yomahesh9094') or die("connection failed");
 $db=mysql_select_db('buzzer',$conn)or die("could not select database");
 $n=mysql_query("select * from quiz where IPAddress= '$r' ");
