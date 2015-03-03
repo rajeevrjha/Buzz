@@ -10,9 +10,9 @@ while($row=mysql_fetch_assoc($m))
 {
 if($row['Count']==0)
 {
-$r=mysql_query("update quiz set PressTime=now() where TeamName='$s' ");
+$r=mysql_query("update quiz set PressTime=now() where IPAddress='$c' ");
 
-$t=mysql_query("update quiz set Count=1 where TeamName='$s' ");
+$t=mysql_query("update quiz set Count=1 where IPAddress='$c' ");
 $a=TRUE;
 
 } 

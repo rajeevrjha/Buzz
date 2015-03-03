@@ -2,7 +2,16 @@
 session_start();
           if(isset($_POST['submit']))
           {
+            
           	$t=$_POST['t_name'];
+            if($t==NULL)
+            {
+              $r=TRUE;
+              
+
+            }
+            else
+            {
           	$_SESSION['team']=$_POST['t_name'];
           
            
@@ -50,7 +59,7 @@ session_start();
            
           }
 
-
+}
 
 
 
@@ -74,6 +83,9 @@ session_start();
            </div>
             <p align="center"><button type="submit" class="btn btn-primary span5" name="submit" >Submit</button> </p>
           </form>
+          <?php if(isset($r)) { unset($r); ?>
+           <p class="alert alert-danger">Fill team name</p>
+   <?php } ?>
           <?php if(isset($f)) { unset($f); ?>
            <p class="alert alert-danger">Dont use same team name</p>
    <?php } ?>
