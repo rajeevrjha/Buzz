@@ -21,17 +21,34 @@ if($e>0) {
   <meta charset="utf-8">
  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
-  
+  <style>
+  img
+  {
+    margin-left: 525px;
+    margin-right: auto;
+    display:block;
+    
+  }
+  #t
+  {
+    margin-top: 400px;
+    margin-right: auto;
+  }
+  </style>
 </head>
 <body>
-<div class='main'>
+
 <h1 align="center"> Welcome User</h1>
  <p style="text-align: center">Click Start and begin speaking</p>
-<canvas id="canvas" width="800" height="256" ></canvas>
-<p id="controls">
-    <div id="t"> </div>
+  <div class="col-md-6 col-md-push-3">
+ <img src="nm.gif">
+
+<canvas id="canvas" width="80" height="256" ></canvas></div>
+
+
+      <div id="t"> </div>
    
-        </div>
+        
 </body>
 </html>
 <?php } ?>
@@ -44,10 +61,12 @@ if($e>0) {
 <style>
 
     #canvas {
-        margin-left: auto;
-        margin-right: auto;
+       
+        margin-left: 625px;
+        
         display: block;
         background-color: black;
+      
     }
     #controls {
         text-align: center;
@@ -132,7 +151,7 @@ window.onbeforeunload = function() {
 
     // Global Variables for Drawing
     var column = 0;
-    var canvasWidth  = 800;
+    var canvasWidth  = 80;
     var canvasHeight = 256;
     var ctx;
     var ctx1;
@@ -221,7 +240,7 @@ var y_lo = canvasHeight - (canvasHeight * minValue) - 1;
         var y_hi = canvasHeight - (canvasHeight * maxValue) - 1;
             ctx.fillStyle = 'red';
         
-        ctx.fillRect(160,160, 10, (y_hi-y_lo)/2);
+        ctx.fillRect(35,220, 10, (y_hi-y_lo)/2);
        start();
          
      
@@ -240,7 +259,7 @@ var y_lo = canvasHeight - (canvasHeight * minValue) - 1;
 	
         ctx.fillStyle = 'green';
 		
-        ctx.fillRect(160,160, 10, (y_hi-y_lo)/2);
+        ctx.fillRect(35,220, 10, (y_hi-y_lo)/2);
         
        setInterval(function() { clearCanvas(); },2000);
 
@@ -254,11 +273,11 @@ var y_lo = canvasHeight - (canvasHeight * minValue) - 1;
     function clearCanvas() {
         column = 0;
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        ctx.strokeStyle = '#f00';
+       /* ctx.strokeStyle = '#f00';
         var y = (canvasHeight / 2) + 0.5;
         ctx.moveTo(0, y);
         ctx.lineTo(canvasWidth-1, y);
-        ctx.stroke();
+        ctx.stroke(); */
     }
 
     function redirect()
